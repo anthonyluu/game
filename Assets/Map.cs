@@ -27,11 +27,10 @@ public class Map : MonoBehaviour {
 
 	void GenerateMap() {
 		map = new List<List<Tile>>();
-		for (int x = 0; x < height; x++) {
+		for (int x = 0; x < width; x++) {
 			List<Tile> row = new List<Tile> ();
-			for (int y = 0; y < width; y++) {
-//				Tile tile = new Tile ();
-				Tile tile = ((GameObject)Instantiate( TilePrefab, new Vector3(x - Mathf.Floor(width/2), 0, -y + Mathf.Floor(height/2)), Quaternion.Euler(new Vector3()))).GetComponent<Tile>();
+			for (int z = 0; z < height; z++) {
+				Tile tile = ((GameObject)Instantiate( TilePrefab, new Vector3(x - Mathf.Floor(width/2), 0, -z + Mathf.Floor(height/2)), Quaternion.Euler(new Vector3()))).GetComponent<Tile>();
 				row.Add (tile);
 
 			}
