@@ -4,12 +4,9 @@ using System.Collections;
 public class Tile : MonoBehaviour
 {
 
-	private Color originalColor;
-
 	// Use this for initialization
 	void Start ()
 	{
-		originalColor = GetComponent<Renderer> ().material.color;
 		
 	}
 	
@@ -20,11 +17,12 @@ public class Tile : MonoBehaviour
 	}
 
 	void OnMouseOver() {
-		GetComponent<Renderer> ().material.SetColor ("_Color", Color.yellow);
+		GetComponent<Renderer> ().material.SetColor("_EmissionColor", Color.white);
+		Debug.Log("On Mouse Over");
 	}
 
 	void OnMouseExit() {
-		GetComponent<Renderer> ().material.SetColor ("_Color", originalColor);
+		GetComponent<Renderer> ().material.SetColor("_EmissionColor", Color.black);
 	}
 }
 
