@@ -49,7 +49,7 @@ public class Tile : MonoBehaviour
 
 
 	void OnMouseOver() {
-		GetComponent<Renderer> ().material.SetColor("_EmissionColor", Color.white);
+		GetComponent<Renderer> ().material.SetColor("_EmissionColor", Color.yellow);
 		Debug.Log("On Mouse Over");
 	}
 

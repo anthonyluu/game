@@ -2,48 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Map : MonoBehaviour {
-	[Range(0,1)]
-	public float terrain_ratio = 0.3f; // The lower it is, the less terrain there will be
+public class Map {
+	int width;
+	int height;
+	float terrain_ratio;
+	GameObject TilePrefab;
+	List<List<Tile>> map;
 
-	public int width;
-	public int height;
-
-	public GameObject TilePrefab;
-
-	// TODO: Refactor this
-	public GameObject MonsterPrefab;
-
-	private List<List<Tile>> map;
-
-	// Use this for initialization
-	void Start () {
-		GenerateMap ();
+	public List<List<Tile>> GenerateMap(GameObject TilePrefab, int width, int height, float terrain_ratio) {
+		this.width = width;
+		this.height = height;
+		this.terrain_ratio = terrain_ratio;
+		this.TilePrefab = TilePrefab;
+		CreateMap ();
 		SetupMapTerrain ();
-//		CreateMonster ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		GetRandomTileType ();
+		return map;
 	}
 
-
-	void GenerateMap() {
+	private void CreateMap() {
 		// Initialize the map and add Instantiated Tiles to it
 		map = new List<List<Tile>>();
 		for (int x = 0; x < width; x++) {
 			List<Tile> row = new List<Tile> ();
 			for (int z = 0; z < height; z++) {
-				Tile tile = ((GameObject)Instantiate( TilePrefab, new Vector3(x - Mathf.Floor(width/2), 0, -z + Mathf.Floor(height/2)), Quaternion.Euler(new Vector3()))).GetComponent<Tile>();
+				Tile tile = ((GameObject) MonoBehaviour.Instantiate( TilePrefab, new Vector3(x - Mathf.Floor(width/2), 0, -z + Mathf.Floor(height/2)), Quaternion.Euler(new Vector3()))).GetComponent<Tile>();
 				tile.tilePosition = new Vector2 (x, z);
 				row.Add (tile);
 			}
 			map.Add (row);
 		}
 	}
-
-	void SetupMapTerrain() {
+		
+	private void SetupMapTerrain() {
 		// iterate through map
 		// if its the first or last column, set it to "Home". This is where players will start
 		// else, randomly generate terrain based on terrain_ratio
@@ -59,6 +50,15 @@ public class Map : MonoBehaviour {
 
 
 				}
+			}
+		}
+	}
+
+	public void RemoveTileHighlights() {
+		// remove any emission color
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				map [i] [j].GetComponent<Renderer> ().material.SetColor ("_EmissionColor", Color.black);
 			}
 		}
 	}
@@ -79,19 +79,5 @@ public class Map : MonoBehaviour {
 			return (TileType)Random.Range(0, 3);
 		}
 	}
-
-//	// This needs to be moved into a game manager class
-//	public void CreateMonster() {
-//		Tile startTile = map [0][1];
-//
-//		Monster monster = ((GameObject)Instantiate( MonsterPrefab, new Vector3(startTile.transform.position.x, 1, startTile.transform.position.z), Quaternion.Euler(new Vector3()))).GetComponent<Monster>();
-//
-//		List<Tile> movementPath = Path.GetTilePath(monster.movement, startTile, map);
-//
-//		for (int i = 0; i < movementPath.Count; i++) {
-//			// for some reason, this doesnt work.
-//			movementPath [i].GetComponent<Renderer> ().material.SetColor ("_EmissionColor", Color.green);
-//			Debug.Log ("i:" + movementPath [i].tilePosition.x + ", y:" + movementPath [i].tilePosition.y);
-//		}
-//	}
+		
 }
