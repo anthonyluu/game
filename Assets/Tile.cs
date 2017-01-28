@@ -15,6 +15,7 @@ public class Tile : MonoBehaviour
 {
 	
 	public TileType tileType = TileType.Normal;
+	public Vector2 tilePosition;
 
 	// Use this for initialization
 	void Start ()
@@ -51,12 +52,12 @@ public class Tile : MonoBehaviour
 
 
 	void OnMouseOver() {
-		GetComponent<Renderer> ().material.SetColor("_EmissionColor", Color.white);
+//		GetComponent<Renderer> ().material.SetColor("_EmissionColor", Color.white);
 		Debug.Log("On Mouse Over");
 	}
 
 	void OnMouseExit() {
-		GetComponent<Renderer> ().material.SetColor("_EmissionColor", GetTileColor());
+//		GetComponent<Renderer> ().material.SetColor("_EmissionColor", GetTileColor());
 	}
 }
 
