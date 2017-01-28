@@ -20,7 +20,7 @@ public class Map : MonoBehaviour {
 	void Start () {
 		GenerateMap ();
 		SetupMapTerrain ();
-		CreateMonster ();
+//		CreateMonster ();
 	}
 	
 	// Update is called once per frame
@@ -80,18 +80,18 @@ public class Map : MonoBehaviour {
 		}
 	}
 
-	// This needs to be moved into a game manager class
-	public void CreateMonster() {
-		Tile startTile = map [0][1];
-
-		Monster monster = ((GameObject)Instantiate( MonsterPrefab, new Vector3(startTile.transform.position.x, 1, startTile.transform.position.z), Quaternion.Euler(new Vector3()))).GetComponent<Monster>();
-
-		List<Tile> movementPath = Path.GetTilePath(monster.movement, startTile, map);
-
-		for (int i = 0; i < movementPath.Count; i++) {
-			// for some reason, this doesnt work.
-			movementPath [i].GetComponent<Renderer> ().material.SetColor ("_EmissionColor", Color.green);
-			Debug.Log ("i:" + movementPath [i].tilePosition.x + ", y:" + movementPath [i].tilePosition.y);
-		}
-	}
+//	// This needs to be moved into a game manager class
+//	public void CreateMonster() {
+//		Tile startTile = map [0][1];
+//
+//		Monster monster = ((GameObject)Instantiate( MonsterPrefab, new Vector3(startTile.transform.position.x, 1, startTile.transform.position.z), Quaternion.Euler(new Vector3()))).GetComponent<Monster>();
+//
+//		List<Tile> movementPath = Path.GetTilePath(monster.movement, startTile, map);
+//
+//		for (int i = 0; i < movementPath.Count; i++) {
+//			// for some reason, this doesnt work.
+//			movementPath [i].GetComponent<Renderer> ().material.SetColor ("_EmissionColor", Color.green);
+//			Debug.Log ("i:" + movementPath [i].tilePosition.x + ", y:" + movementPath [i].tilePosition.y);
+//		}
+//	}
 }

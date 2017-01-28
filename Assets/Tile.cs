@@ -18,46 +18,43 @@ public class Tile : MonoBehaviour
 	public Vector2 tilePosition;
 
 	// Use this for initialization
-	void Start ()
-	{
-		GetComponent<Renderer> ().material.SetColor("_EmissionColor", GetTileColor());
+	void Start () {
+		GetComponent<Renderer> ().material = GetMaterialType();
+		GetComponent<Renderer> ().material.SetColor("_EmissionColor", Color.black);
 	}
 	
 	// Update is called once per frame
-	void Update ()
-	{
+	void Update () {
 
 	}
 
-	Color GetTileColor()
-	{
+	Material GetMaterialType() {
 		switch (tileType)
 		{
 		case TileType.Water:
-			return Color.blue;
+			return Resources.Load("Materials/Tiles/water_tile", typeof(Material)) as Material;
 		case TileType.Forest:
-			return Color.green;
+			return Resources.Load("Materials/Tiles/grass_tile", typeof(Material)) as Material;
 		case TileType.Rock:
-			return Color.grey;
+			return Resources.Load("Materials/Tiles/rock_tile", typeof(Material)) as Material;
 		case TileType.Ice:
-			return Color.cyan;
+			return Resources.Load("Materials/Tiles/ice_tile", typeof(Material)) as Material;
 		case TileType.Normal:
-			return Color.clear;
+			return Resources.Load("Materials/Tiles/plain_tile_border", typeof(Material)) as Material;
 		default:
-			// Home color
-			return Color.yellow;
+			// home
+			return Resources.Load("Materials/Tiles/home_tile", typeof(Material)) as Material;
 		};
-
 	}
 
 
 	void OnMouseOver() {
-//		GetComponent<Renderer> ().material.SetColor("_EmissionColor", Color.white);
+		GetComponent<Renderer> ().material.SetColor("_EmissionColor", Color.white);
 		Debug.Log("On Mouse Over");
 	}
 
 	void OnMouseExit() {
-//		GetComponent<Renderer> ().material.SetColor("_EmissionColor", GetTileColor());
+		GetComponent<Renderer> ().material.SetColor("_EmissionColor", Color.black);
 	}
 }
 
